@@ -18,6 +18,7 @@ pipeline {
         sh '''#!/bin/bash
         source test3/bin/activate
         py.test --verbose --junit-xml test-reports/results.xml
+        echo 'TESTING WEBHOOK + EMAIL NOTIF'
         ''' 
       }
     
