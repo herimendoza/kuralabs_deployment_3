@@ -13,7 +13,7 @@ pipeline {
         '''
      }
    }
-    stage ('test') {
+    stage ('Test') {
       steps {
         sh '''#!/bin/bash
         source test3/bin/activate
@@ -28,6 +28,22 @@ pipeline {
        
       }
     }
+     stage ('Deploy') {
+       agent{label 'awsDeploy'}
+       steps {
+         sh '''#!/bin/bash
+         git clone https://github.com/herimendoza/kuralabs_deployment_3.git
+         cd ./kuralabs_deployment_3
+         python3 -m venv test3
+         source test3/bin/activate
+         pip install -r requirements.txt
+         pip install gunicorn
+         '''
+         keepRunning {
+           sh 'gunicorn -w 4 application:app -b 0.0.0.0 --daemon'
+         }
+       }
+     }
    
   }
  }
