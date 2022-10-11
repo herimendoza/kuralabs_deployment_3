@@ -42,6 +42,7 @@ pipeline {
          keepRunning {
            sh '''#!/bin/bash
            gunicorn -w 4 application:app -b 0.0.0.0 --daemon
+           '''
          }
        }
      }
