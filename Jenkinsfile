@@ -41,6 +41,7 @@ pipeline {
          '''
          keepRunning {
            sh '''#!/bin/bash
+           cd /home/ubuntu/agent/workspace/url-shortener_main/kuralabs_deployment_3
            gunicorn -w 4 application:app -b 0.0.0.0 --daemon
            '''
          }
