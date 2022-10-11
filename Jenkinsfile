@@ -38,10 +38,10 @@ pipeline {
          source test3/bin/activate
          pip install -r requirements.txt
          pip install gunicorn
-         '''
          keepRunning {
-           sh 'gunicorn -w 4 application:app -b 0.0.0.0 --daemon'
+           gunicorn -w 4 application:app -b 0.0.0.0 --daemon
          }
+         '''
        }
      }
    
