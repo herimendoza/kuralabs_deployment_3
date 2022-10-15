@@ -1,0 +1,218 @@
+Push event to branch main
+Connecting to https://api.github.com using herimendoza/****** (Github Token)
+Obtained Jenkinsfile from a945ac2ac3db50ef4a2786356d301c3b415b1d2a
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/url-shortener_main
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+The recommended git tool is: NONE
+using credential b16544b0-0929-4909-a0ed-8251aa2c38df
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/url-shortener_main/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/herimendoza/kuralabs_deployment_3.git # timeout=10
+Fetching without tags
+Fetching upstream changes from https://github.com/herimendoza/kuralabs_deployment_3.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.34.1'
+using GIT_ASKPASS to set credentials Github Token
+ > git fetch --no-tags --force --progress -- https://github.com/herimendoza/kuralabs_deployment_3.git +refs/heads/main:refs/remotes/origin/main # timeout=10
+Checking out Revision a945ac2ac3db50ef4a2786356d301c3b415b1d2a (main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f a945ac2ac3db50ef4a2786356d301c3b415b1d2a # timeout=10
+Commit message: "base.html update"
+ > git rev-list --no-walk 00a161852039371dbd9f7126e20ff25d374c2403 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] sh
+Requirement already satisfied: pip in ./test3/lib/python3.10/site-packages (22.2.2)
+Requirement already satisfied: attrs==22.1.0 in ./test3/lib/python3.10/site-packages (from -r requirements.txt (line 2)) (22.1.0)
+Requirement already satisfied: click==8.1.3 in ./test3/lib/python3.10/site-packages (from -r requirements.txt (line 3)) (8.1.3)
+Requirement already satisfied: flask==2.2.2 in ./test3/lib/python3.10/site-packages (from -r requirements.txt (line 4)) (2.2.2)
+Requirement already satisfied: iniconfig==1.1.1 in ./test3/lib/python3.10/site-packages (from -r requirements.txt (line 5)) (1.1.1)
+Requirement already satisfied: itsdangerous==2.1.2 in ./test3/lib/python3.10/site-packages (from -r requirements.txt (line 6)) (2.1.2)
+Requirement already satisfied: jinja2==3.1.2 in ./test3/lib/python3.10/site-packages (from -r requirements.txt (line 7)) (3.1.2)
+Requirement already satisfied: markupsafe==2.1.1 in ./test3/lib/python3.10/site-packages (from -r requirements.txt (line 8)) (2.1.1)
+Requirement already satisfied: packaging==21.3 in ./test3/lib/python3.10/site-packages (from -r requirements.txt (line 9)) (21.3)
+Requirement already satisfied: pluggy==1.0.0 in ./test3/lib/python3.10/site-packages (from -r requirements.txt (line 10)) (1.0.0)
+Requirement already satisfied: py==1.11.0 in ./test3/lib/python3.10/site-packages (from -r requirements.txt (line 11)) (1.11.0)
+Requirement already satisfied: pyparsing==3.0.9 in ./test3/lib/python3.10/site-packages (from -r requirements.txt (line 12)) (3.0.9)
+Requirement already satisfied: pytest==7.1.2 in ./test3/lib/python3.10/site-packages (from -r requirements.txt (line 13)) (7.1.2)
+Requirement already satisfied: tomli==2.0.1 in ./test3/lib/python3.10/site-packages (from -r requirements.txt (line 14)) (2.0.1)
+Requirement already satisfied: werkzeug==2.2.2 in ./test3/lib/python3.10/site-packages (from -r requirements.txt (line 15)) (2.2.2)
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] sh
+============================= test session starts ==============================
+platform linux -- Python 3.10.6, pytest-7.1.2, pluggy-1.0.0 -- /var/lib/jenkins/workspace/url-shortener_main/test3/bin/python3
+cachedir: .pytest_cache
+rootdir: /var/lib/jenkins/workspace/url-shortener_main
+collecting ... collected 1 item
+
+test_app.py::test_quick PASSED                                           [100%]
+
+- generated xml file: /var/lib/jenkins/workspace/url-shortener_main/test-reports/results.xml -
+============================== 1 passed in 0.13s ===============================
+TESTING WEBHOOK + EMAIL NOTIF
+Post stage
+[Pipeline] junit
+Recording test results
+[Checks API] No suitable checks publisher found.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Clean)
+[Pipeline] node
+Running on awsDeploy in /home/ubuntu/agent/workspace/url-shortener_main
+[Pipeline] {
+[Pipeline] checkout
+The recommended git tool is: NONE
+using credential b16544b0-0929-4909-a0ed-8251aa2c38df
+Fetching changes from the remote Git repository
+Fetching without tags
+Checking out Revision a945ac2ac3db50ef4a2786356d301c3b415b1d2a (main)
+Commit message: "base.html update"
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy)
+ > git rev-parse --resolve-git-dir /home/ubuntu/agent/workspace/url-shortener_main/.git # timeout=10
+ > git config remote.origin.url https://github.com/herimendoza/kuralabs_deployment_3.git # timeout=10
+Fetching upstream changes from https://github.com/herimendoza/kuralabs_deployment_3.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.34.1'
+using GIT_ASKPASS to set credentials Github Token
+ > git fetch --no-tags --force --progress -- https://github.com/herimendoza/kuralabs_deployment_3.git +refs/heads/main:refs/remotes/origin/main # timeout=10
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f a945ac2ac3db50ef4a2786356d301c3b415b1d2a # timeout=10
+[Pipeline] node
+Running on awsDeploy in /home/ubuntu/agent/workspace/url-shortener_main
+[Pipeline] {
+[Pipeline] checkout
+The recommended git tool is: NONE
+using credential b16544b0-0929-4909-a0ed-8251aa2c38df
+Fetching changes from the remote Git repository
+Fetching without tags
+Checking out Revision a945ac2ac3db50ef4a2786356d301c3b415b1d2a (main)
+Commit message: "base.html update"
+ > git rev-parse --resolve-git-dir /home/ubuntu/agent/workspace/url-shortener_main/.git # timeout=10
+ > git config remote.origin.url https://github.com/herimendoza/kuralabs_deployment_3.git # timeout=10
+Fetching upstream changes from https://github.com/herimendoza/kuralabs_deployment_3.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.34.1'
+using GIT_ASKPASS to set credentials Github Token
+ > git fetch --no-tags --force --progress -- https://github.com/herimendoza/kuralabs_deployment_3.git +refs/heads/main:refs/remotes/origin/main # timeout=10
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f a945ac2ac3db50ef4a2786356d301c3b415b1d2a # timeout=10
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] keepRunning
+[Pipeline] {
+[Pipeline] sh
+Defaulting to user installation because normal site-packages is not writeable
+Requirement already satisfied: attrs==22.1.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 2)) (22.1.0)
+Requirement already satisfied: click==8.1.3 in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 3)) (8.1.3)
+Requirement already satisfied: flask==2.2.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 4)) (2.2.2)
+Requirement already satisfied: iniconfig==1.1.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 5)) (1.1.1)
+Requirement already satisfied: itsdangerous==2.1.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 6)) (2.1.2)
+Requirement already satisfied: jinja2==3.1.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 7)) (3.1.2)
+Requirement already satisfied: markupsafe==2.1.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 8)) (2.1.1)
+Requirement already satisfied: packaging==21.3 in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 9)) (21.3)
+Requirement already satisfied: pluggy==1.0.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 10)) (1.0.0)
+Requirement already satisfied: py==1.11.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 11)) (1.11.0)
+Requirement already satisfied: pyparsing==3.0.9 in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 12)) (3.0.9)
+Requirement already satisfied: pytest==7.1.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 13)) (7.1.2)
+Requirement already satisfied: tomli==2.0.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 14)) (2.0.1)
+Requirement already satisfied: werkzeug==2.2.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 15)) (2.2.2)
+Defaulting to user installation because normal site-packages is not writeable
+Requirement already satisfied: gunicorn in /home/ubuntu/.local/lib/python3.10/site-packages (20.1.0)
+Requirement already satisfied: setuptools>=3.0 in /usr/lib/python3/dist-packages (from gunicorn) (59.6.0)
+[Pipeline] }
+[Pipeline] // keepRunning
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] emailext
+Sending mail from default account using System Admin e-mail address
+messageContentType = text/plain; charset=UTF-8
+Request made to attach build log
+Adding recipients from project recipient list
+Analyzing: heri.mendoza9@gmail.com
+Looking for: heri.mendoza9@gmail.com
+	starting at: 0
+	firstFoundIdx: 0
+	firstFoundIdx-substring: heri.mendoza9@gmail.com
+	=> found type: 0
+Analyzing: heri.mendoza9@gmail.com
+Looking for: heri.mendoza9@gmail.com
+	starting at: 0
+	firstFoundIdx: 0
+	firstFoundIdx-substring: heri.mendoza9@gmail.com
+	=> found type: 0
+Analyzing: heri.mendoza9@gmail.com
+Looking for: heri.mendoza9@gmail.com
+	starting at: 0
+	firstFoundIdx: 0
+	firstFoundIdx-substring: heri.mendoza9@gmail.com
+	=> found type: 0
+Adding recipients from trigger recipient list
+Successfully created MimeMessage
+Sending email to: heri.mendoza9@gmail.com
+DEBUG: getProvider() returning jakarta.mail.Provider[TRANSPORT,smtp,com.sun.mail.smtp.SMTPTransport,Oracle]
+DEBUG SMTP: need username and password for authentication
+DEBUG SMTP: protocolConnect returning false, host=smtp.gmail.com, user=jenkins, password=<null>
+DEBUG SMTP: useEhlo true, useAuth true
+DEBUG SMTP: trying to connect to host "smtp.gmail.com", port 465, isSSL false
+220 smtp.gmail.com ESMTP t21-20020a37ea15000000b006ce1bfbd603sm3917741qkj.124 - gsmtp
+DEBUG SMTP: connected to host "smtp.gmail.com", port: 465
+EHLO ip-172-31-83-232.ec2.internal
+250-smtp.gmail.com at your service, [3.83.173.46]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+DEBUG SMTP: Found extension "SIZE", arg "35882577"
+DEBUG SMTP: Found extension "8BITMIME", arg ""
+DEBUG SMTP: Found extension "AUTH", arg "LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH"
+DEBUG SMTP: Found extension "ENHANCEDSTATUSCODES", arg ""
+DEBUG SMTP: Found extension "PIPELINING", arg ""
+DEBUG SMTP: Found extension "CHUNKING", arg ""
+DEBUG SMTP: Found extension "SMTPUTF8", arg ""
+DEBUG SMTP: protocolConnect login, host=smtp.gmail.com, user=heri.mendoza9@gmail.com, password=<non-null>
+DEBUG SMTP: Attempt to authenticate using mechanisms: LOGIN PLAIN DIGEST-MD5 NTLM XOAUTH2 
+DEBUG SMTP: Using mechanism LOGIN
+DEBUG SMTP: AUTH LOGIN command trace suppressed
+DEBUG SMTP: AUTH LOGIN succeeded
+DEBUG SMTP: use8bit false
+MAIL FROM:<nobody@nowhere>
+250 2.1.0 OK t21-20020a37ea15000000b006ce1bfbd603sm3917741qkj.124 - gsmtp
+DEBUG SMTP: sendPartial set
+RCPT TO:<heri.mendoza9@gmail.com>
+250 2.1.5 OK t21-20020a37ea15000000b006ce1bfbd603sm3917741qkj.124 - gsmtp
+DEBUG SMTP: Verified Addresses
+DEBUG SMTP:   heri.mendoza9@gmail.com
+DATA
+354  Go ahead t21-20020a37ea15000000b006ce1bfbd603sm3917741qkj.124 - gsmtp
