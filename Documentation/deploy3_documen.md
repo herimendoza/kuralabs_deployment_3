@@ -203,6 +203,8 @@ post{
 
 In this final stage, the email extension Jenkins plugin was used to send an email notification with the attached build log. In order for this to happen, the email credentials had to be provided along with the smtp server of the email (in this case, google).
 
+[Build Log attachment](https://github.com/herimendoza/kuralabs_deployment_3/blob/b582de202ffebb2d4ea57a8bad38a5db7e473276/Documentation/build_deploy3.log)
+
 #### ***3. Diagram of the Jenkins Pipeline***
 
 [Pipeline](https://github.com/herimendoza/kuralabs_deployment_3/blob/8cf742ccae7cee54b94c9038b18c9ad811078035/deploy3_images/Deploy3_pipeline.png)
