@@ -92,6 +92,8 @@ Note: In the initial builds, there was an error where the page for the applicati
 
 The Jenkins Manager UI was accessed through `<manager ec2 ipv4>:8080` on a web browser and a node was added named 'awsDeploy'. The manager and agent were connected through SSH; the RSA key and the host IP were uploaded to grant the manager access. Since the agent is in a public subnet, the key was all that was needed to establish a connection.
 
+[Jenkins node -- success](https://github.com/herimendoza/kuralabs_deployment_3/blob/8cf742ccae7cee54b94c9038b18c9ad811078035/deploy3_images/jenkins_nodes.png)
+
 #### 1e. Connecting Jenkins Manager to GitHub:
 
 A multibranch pipeline was created to start a build on Jenkins. The link to the appropriate repository (source code and Jenkinsfile) was provided along with the GitHub user credentials. 
@@ -159,7 +161,9 @@ stage ('Clean') {
 
 The agent label specifies that this stage takes place in the Jenkins agent, not the manager. In this stage, a shell script is ran to look for (and terminate if necessary) any gunicorn processes. This is necessary because if a process is running on a specific port (say port 5000), any attempt to run another iteration of said process on the same port would result in a failure because there is already an active process. In this case, running the deployment, making a change to the source code, and then attempting to run the deployment again would not update the app in the web browser. With the 'Clean' stage, any active processes on port 5000 are killed before launching the application again. This solution was demonstrated below: the HTML code was edited to change the header in the application; running the deployment ran the updated application.
 
-<insert photos here>
+[Default application](https://github.com/herimendoza/kuralabs_deployment_3/blob/8cf742ccae7cee54b94c9038b18c9ad811078035/deploy3_images/default_app_page.png)
+
+[Updated application](https://github.com/herimendoza/kuralabs_deployment_3/blob/8cf742ccae7cee54b94c9038b18c9ad811078035/deploy3_images/updated_app_page.png)
 
 #### 2d. The 'Deploy' stage:
 
@@ -182,6 +186,8 @@ In this stage, a script is run on the agent EC2 to install gunicorn and then run
 
 Note: The initial builds, although successful, resulted in a 502 bad gateway error. Further investigation revealed that by default, Jenkins kills all current processes once a stage is completed. In this example, this means that even though Jenkins sucessfully deployed the application on the agent server, once the stage was complete, Jenkins would kill the application. In short, while nginx (the webserver) was still running, gunicorn (the app server) was not, resulting in a 502 error (nginx was pointing to the right port, but gunicorn was not running the app on said port). The solution was a simple Jenkins plugin called 'Pipeline-Keep-Running-Step'. This plugin introduced the use of 'keepRunning{}' wrapping. Anything inside the braces would continue running after the build was complete. Running the gunicorn script in the braces allowed for continuous access to the application. As explained above, the 'Clean' stage before the 'Deploy' stage ensured that in every new build, a new instance of the application was launched, in case there was an update to the code.
 
+[Successful Builds](https://github.com/herimendoza/kuralabs_deployment_3/blob/8cf742ccae7cee54b94c9038b18c9ad811078035/deploy3_images/build_history.png)
+
 #### 2e. The 'Post' stage:
 
 ```console
@@ -198,11 +204,12 @@ post{
 In this final stage, the email extension Jenkins plugin was used to send an email notification with the attached build log. In order for this to happen, the email credentials had to be provided along with the smtp server of the email (in this case, google).
 
 #### ***3. Diagram of the Jenkins Pipeline***
-<attach image here>
+
+[Pipeline](https://github.com/herimendoza/kuralabs_deployment_3/blob/8cf742ccae7cee54b94c9038b18c9ad811078035/deploy3_images/Deploy3_pipeline.png)
 
 #### ***4. VPC Architecture***
 
-<attach image here>
+[VPC](https://github.com/herimendoza/kuralabs_deployment_3/blob/8cf742ccae7cee54b94c9038b18c9ad811078035/deploy3_images/Deploy3_architecture.png)
 
 #### ***5. Type of stack***
 
@@ -212,5 +219,5 @@ An overview of the pipeline and VPC architecture highlights some of the importan
 #### ***6. Improvements***
 
 In thinking about how to improve this deployment:
-- It would merit consideration to have one VPC with EC2's in private subnets in different availablity zones, instead of two VPCs with public subnets. This would mitigate security risks that come with not securing subnets. In a real world, enterprise level environment, all the servers would ideally be in subnets with reduntant servers in other AZs. The user would access the app through a bastion host.
+- It would merit consideration to have one VPC with EC2's in private subnets in different availablity zones, instead of two VPCs with public subnets. This would mitigate security risks that come with not securing subnets. In a real world, enterprise level environment, all the servers would ideally be in private subnets with reduntant servers in other AZs. The user would access the app through a bastion host.
 - More tests (using cypress) could be added to this pipeline. A third EC2 could be instantiated with Cypress and a Cypress test stage could be added to the pipeline. The application would be put through tests on the third server before being deployed on the deployment server. 
